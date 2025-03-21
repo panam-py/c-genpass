@@ -11,6 +11,6 @@
 
 
 
-char *generatePassword();
+void generatePassword();
 
 #endif

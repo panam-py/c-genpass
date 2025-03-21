@@ -25,7 +25,7 @@ int collectOptions(char *text) {
     };
 };
 
-char *generatePassword() {
+void generatePassword() {
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
 
@@ -69,6 +69,5 @@ char *generatePassword() {
     free(newPassword);
     optionSet =  NULL;
     newPassword = NULL;
-    return newPassword;
 };
 
