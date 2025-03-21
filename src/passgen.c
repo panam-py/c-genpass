@@ -1,8 +1,10 @@
 #include "passgen.h"
 #include "config.h"
+#include "utils.c"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int collectOptions(char *text) {
     char userChoice;
@@ -15,15 +17,53 @@ int collectOptions(char *text) {
             choice = 1;
             return choice;
         }
-        else if (userChoice == 78  || userChoice == 110 ) {
-            printf("User chose NO! %c\n", userChoice);
-            return choice; // If userchoice is 'N' or 'n'
-        } else if (userChoice != 89 && userChoice != 121 && userChoice != 78 && userChoice != 110) {
+
+        else if (userChoice == 78  || userChoice == 110 ) return choice; // If userchoice is 'N' or 'n'
+        else if (userChoice != 89 && userChoice != 121 && userChoice != 78 && userChoice != 110) {
             printf("Invalid choice, please choose 'Y' or 'N'.\n");
             continue;
         }
     };
 };
+
+// Function to return the score object for the current password
+struct score *scoreObj(char *password, struct score *scoreObject) {
+    int score = 0;
+    size_t passwordLength = strlen(password);
+
+    // Implement scoring system
+    if (passwordLength >= 8) ++score;
+    if (passwordLength >= 12) ++score;
+    if (checkIfLower(password)) ++score;
+    if (checkIfUpper(password)) ++score;
+    if (checkForAnyOfStringInString(password, DIGITS)) ++score;
+    if (checkForAnyOfStringInString(password, SYMBOLS)) ++score;
+    
+    scoreObject->value = score;
+
+    // Assign score remark based on score (remark is used as a string literal here so it's read only)
+    if (score >= 0 && score <= 2) scoreObject->remark = "WEAK";
+    else if (score >= 3 && score <= 4) scoreObject->remark = "MODERATE";
+    else if (score >= 5 && score <= 6)  scoreObject->remark = "STRONG";
+    else if (score == 7) scoreObject->remark =  "VERY STRONG";
+
+
+    return scoreObject;
+};
+
+void getScore() {
+    char *password = malloc(128 * sizeof(char)); // Setting length to 128 MAX
+    printf("Enter the password to check it's security level: ");
+    scanf("%s", password);
+
+    struct score *scoreObject = malloc((sizeof(struct score)));
+    scoreObject = scoreObj(password, scoreObject);
+
+
+    printf("This password had a strength of %d and is labeled as %s\n", scoreObject->value, scoreObject->remark);
+    free(scoreObject);
+    free(password);
+}
 
 void generatePassword() {
     // Current of options selected
