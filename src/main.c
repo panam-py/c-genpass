@@ -1,8 +1,17 @@
 #include "passgen.h"
+#include "config.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
+
+void handleShutDown(int signal) {
+    (void)signal;
+    printf("\nShutting down...\n");
+    exit(0);
+}
 
 int main() {
+    signal(SIGINT, handleShutDown); // Handle CTRL + C (SIGINT - SIGNAL INTERRUPTION)
     int choice;
     while(1) {
         printf("What do you want to do?\nSelect 1 to generate a password and 2 to estimate a password: ");

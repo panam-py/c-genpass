@@ -1,5 +1,5 @@
 #include "passgen.h"
-#include "config.h"
+#include "config.c"
 #include "utils.c"
 #include <stdio.h>
 #include <string.h>
