@@ -68,7 +68,7 @@ void getScore() {
 void generatePassword() {
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
-
+    
     // Collect length of password from user
     int length, digits, lower, symbols, upper;
     printf("Your password should be how long?: ");
@@ -104,10 +104,17 @@ void generatePassword() {
         *(newPassword+i) = optionSet[curIndex];
     }
 
-    printf("The password is: %s\n", newPassword);
+    // Get score object for the password
+    struct score *scoreObject = malloc(sizeof(struct score));
+    scoreObject = scoreObj(newPassword, scoreObject);
+    
+    printf("The password is: %s\nThe score for this password is %d and it is labeled as %s\n", newPassword, scoreObject->value, scoreObject->remark);
+
     free(optionSet);
     free(newPassword);
+    free(scoreObject);
     optionSet =  NULL;
     newPassword = NULL;
+    scoreObject = NULL;
 };
 
