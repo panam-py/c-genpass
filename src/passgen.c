@@ -65,14 +65,17 @@ void getScore() {
     free(password);
 }
 
-struct scoreAttributes *generatePassword() {
+struct scoreAttributes *generatePassword(int length) { // Set length to zero for the function to get length from stdin
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
     
     // Collect length of password from user
-    int length, digits, lower, symbols, upper;
-    printf("Your password should be how long?: ");
-    scanf("%d", &length);
+    int digits, lower, symbols, upper;
+
+    if (length == 0) {
+        printf("Your password should be how long?: ");
+        scanf("%d", &length);
+    }
 
     // Set options based on received values
     digits = collectOptions("Do you want digits in your password? (Y or N): ");
