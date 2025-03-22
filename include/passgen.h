@@ -27,7 +27,7 @@ struct scoreAttributes {
 
 // Main logic functions
 struct score *scoreObj(char *password, struct score *scoreObject);
-struct scoreAttributes *generatePassword(int length);
+struct scoreAttributes *generatePassword(int length, int digits, int lower, int symbols, int upper);
 void getScore();
 
 #endif

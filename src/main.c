@@ -22,7 +22,7 @@ int main() {
             continue;
         };
 
-        if (choice == 1) generatePassword(0);
+        if (choice == 1) generatePassword(0, -1, -1, -1, -1);
         else if (choice == 2) getScore();
 
         else {

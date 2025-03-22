@@ -65,12 +65,12 @@ void getScore() {
     free(password);
 }
 
-struct scoreAttributes *generatePassword(int length) { // Set length to zero for the function to get length from stdin
+struct scoreAttributes *generatePassword(int length, int digits, int lower, int symbols, int upper) { // Set length to zero for the function to get length from stdin
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
     
     // Collect length of password from user
-    int digits, lower, symbols, upper;
+    // int digits, lower, symbols, upper;
 
     if (length == 0) {
         printf("Your password should be how long?: ");
@@ -78,10 +78,10 @@ struct scoreAttributes *generatePassword(int length) { // Set length to zero for
     }
 
     // Set options based on received values
-    digits = collectOptions("Do you want digits in your password? (Y or N): ");
-    lower = collectOptions("Do you want lowercase in your password? (Y or N): ");
-    symbols = collectOptions("Do you want symbols in your password? (Y or N): ");
-    upper = collectOptions("Do you want uppercase in your password? (Y or N): ");
+    if (digits == -1) digits = collectOptions("Do you want digits in your password? (Y or N): ");
+    if (lower == -1) lower = collectOptions("Do you want lowercase in your password? (Y or N): ");
+    if (symbols == -1) symbols = collectOptions("Do you want symbols in your password? (Y or N): ");
+    if (upper == -1) upper = collectOptions("Do you want uppercase in your password? (Y or N): ");
    
 
     // Exit from app if user does not select yes to any option
