@@ -138,15 +138,15 @@ void *generatePassword(int length, int digits, int lower, int symbols, int upper
 
     // Free out space since length was not passed we do not need to return the scoreAttribute 
     if (length == 0) {
-        free(optionSet);
         free(newPassword);
         free(scoreObject);
-        optionSet =  NULL;
         newPassword = NULL;
         scoreObject = NULL;
         return NULL;
     }
-
+    
+    free(optionSet);
+    optionSet =  NULL;
     return scoreAttr;
 };
 
