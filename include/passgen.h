@@ -9,6 +9,12 @@
 //     int use_symbols;
 // };
 
+extern const int POSSIBLE_OPTION_LENGTH;// = 95; // Total length of the possible characters that could be added
+extern const char UPPER[27];// = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+extern const char LOWER[27];// = "abcdefghijklmnopqrstuvwxyz";
+extern const char DIGITS[11]; //= "0123456789";
+extern const char SYMBOLS[33];// = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
 struct score {
     int value;
     char *remark;
@@ -24,6 +30,11 @@ struct scoreAttributes {
     int has_symbols;
 };
 
+// Utility functions
+int checkIfUpper(char *password);
+int checkIfLower(char *password);
+int checkForAnyOfStringInString(char *stringA, char const *stringB);
+void clearInputBuffer();
 
 // Main logic functions
 struct score *scoreObj(char *password, struct score *scoreObject);
