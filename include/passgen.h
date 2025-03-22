@@ -14,10 +14,16 @@ struct score {
     char *remark;
 };
 
+struct scoreAttributes {
+    struct score *scoreObject;
+    int passLen;
+    char *password;
+};
+
 
 // Main logic functions
 struct score *scoreObj(char *password, struct score *scoreObject);
-void generatePassword();
+struct scoreAttributes *generatePassword();
 void getScore();
 
 #endif

@@ -65,7 +65,7 @@ void getScore() {
     free(password);
 }
 
-void generatePassword() {
+struct scoreAttributes *generatePassword() {
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
     
@@ -110,11 +110,19 @@ void generatePassword() {
     
     printf("The password is: %s\nThe score for this password is %d and it is labeled as %s\n", newPassword, scoreObject->value, scoreObject->remark);
 
-    free(optionSet);
-    free(newPassword);
-    free(scoreObject);
-    optionSet =  NULL;
-    newPassword = NULL;
-    scoreObject = NULL;
+    struct scoreAttributes *scoreAttr = malloc(sizeof(struct scoreAttributes));
+    scoreAttr->passLen = length;
+    scoreAttr->password = newPassword;
+    scoreAttr->scoreObject = scoreObject;
+
+    // Commented out free since return was added for type scoreAttributes. Make sure to free out after using the generatePassword function
+    // free(optionSet);
+    // free(newPassword);
+    // free(scoreObject);
+    // optionSet =  NULL;
+    // newPassword = NULL;
+    // scoreObject = NULL;
+
+    return scoreAttr;
 };
 
