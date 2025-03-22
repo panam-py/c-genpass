@@ -23,7 +23,7 @@ int main() {
         };
 
         if (choice == 1) generatePassword(0, -1, -1, -1, -1);
-        else if (choice == 2) getScore();
+        else if (choice == 2) getScore("");
 
         else {
             printf("Invalid choice entered!\n");

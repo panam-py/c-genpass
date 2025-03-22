@@ -51,21 +51,35 @@ struct score *scoreObj(char *password, struct score *scoreObject) {
     return scoreObject;
 };
 
-void getScore() {
-    char *password = malloc(128 * sizeof(char)); // Setting length to 128 MAX
-    printf("Enter the password to check it's security level: ");
-    scanf("%s", password);
+void *getScore(char *possiblePass) {
+    char *password;
+    int passwordEmpty = strcmp(possiblePass, ""); // Check if possiblePass is an empty string, if 0 it means possiblePass os empty
+
+    // if possiblePass is an empty string, collect password from user, if not use passed value
+    if (passwordEmpty == 0) {
+        password = malloc(128 * sizeof(char)); // Setting length to 128 MAX
+        printf("Enter the password to check it's security level: ");
+        scanf("%s", password);
+    } else {
+        password = possiblePass;
+    }
 
     struct score *scoreObject = malloc((sizeof(struct score)));
     scoreObject = scoreObj(password, scoreObject);
 
 
     printf("This password had a strength of %d and is labeled as %s\n", scoreObject->value, scoreObject->remark);
-    free(scoreObject);
-    free(password);
+
+    if (passwordEmpty == 0) {
+        free(scoreObject);
+        free(password);
+        return NULL;
+    }
+
+    return scoreObject;
 }
 
-struct scoreAttributes *generatePassword(int length, int digits, int lower, int symbols, int upper) { // Set length to zero for the function to get length from stdin
+void *generatePassword(int length, int digits, int lower, int symbols, int upper) { // Set length to zero for the function to get length from stdin
     // Current of options selected
     char *optionSet = malloc(POSSIBLE_OPTION_LENGTH * sizeof(char));
     
@@ -122,13 +136,16 @@ struct scoreAttributes *generatePassword(int length, int digits, int lower, int 
     scoreAttr->has_symbols = symbols;
     scoreAttr->has_upper = upper;
 
-    // Commented out free since return was added for type scoreAttributes. Make sure to free out after using the generatePassword function
-    // free(optionSet);
-    // free(newPassword);
-    // free(scoreObject);
-    // optionSet =  NULL;
-    // newPassword = NULL;
-    // scoreObject = NULL;
+    // Free out space since length was not passed we do not need to return the scoreAttribute 
+    if (length == 0) {
+        free(optionSet);
+        free(newPassword);
+        free(scoreObject);
+        optionSet =  NULL;
+        newPassword = NULL;
+        scoreObject = NULL;
+        return NULL;
+    }
 
     return scoreAttr;
 };
