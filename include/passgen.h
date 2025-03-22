@@ -18,6 +18,10 @@ struct scoreAttributes {
     struct score *scoreObject;
     int passLen;
     char *password;
+    int has_digit;
+    int has_lower;
+    int has_upper;
+    int has_symbols;
 };
 
 

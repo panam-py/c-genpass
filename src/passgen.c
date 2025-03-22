@@ -114,6 +114,10 @@ struct scoreAttributes *generatePassword() {
     scoreAttr->passLen = length;
     scoreAttr->password = newPassword;
     scoreAttr->scoreObject = scoreObject;
+    scoreAttr->has_digit = digits;
+    scoreAttr->has_lower = lower;
+    scoreAttr->has_symbols = symbols;
+    scoreAttr->has_upper = upper;
 
     // Commented out free since return was added for type scoreAttributes. Make sure to free out after using the generatePassword function
     // free(optionSet);
